@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+
+{% block title %}
+The BroadCast - News Headlines
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4">News Headlines</h2>
+    <a class="btn btn-success mb-3" href="/add_news">Add News</a>
+    <div class="row">
+        {% for news_item in news_list %}
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">{{ news_item.headline }}</h5>
+                    <p class="card-text"><strong>Description:</strong> {{ news_item.description }}</p>
+                    <p class="card-text"><strong>Author:</strong> {{ news_item.author }}</p>
+                    <p class="card-text"><strong>Category:</strong> {{ news_item.category }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
