@@ -43,7 +43,7 @@ The BroadCast is a web application developed for a leading newspaper company, de
 
 ## Contributors
 
-- [Your Name](https://github.com/Alimiyan)
+- [Alimiyan](https://github.com/Alimiyan)
 
 ## License
 
