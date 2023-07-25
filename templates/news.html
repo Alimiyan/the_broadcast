@@ -7,8 +7,12 @@ The BroadCast - News Headlines
 {% block content %}
 <div class="container my-5">
     <h2 class="mb-4">News Headlines</h2>
-    <a class="btn btn-success mb-3" href="/add_news">Add News</a>
-    <div class="row">
+    <hr>
+    <hr>
+    {% if username %}
+        <a class="btn btn-success mb-3" href="/add_news">Add News</a>
+    {% endif %}
+    <div class="row mt-3">
         {% for news_item in news_list %}
         <div class="col-md-6">
             <div class="card mb-4">
@@ -17,6 +21,11 @@ The BroadCast - News Headlines
                     <p class="card-text"><strong>Description:</strong> {{ news_item.description }}</p>
                     <p class="card-text"><strong>Author:</strong> {{ news_item.author }}</p>
                     <p class="card-text"><strong>Category:</strong> {{ news_item.category }}</p>
+
+                    {% if username == 'admin' %}
+                        <a class="btn btn-success" href="{{ url_for('update', id=news_item.id) }}" >Update</a>
+                        <a class="btn btn-danger" href="{{ url_for('delete', id=news_item.id) }}" >Delete</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

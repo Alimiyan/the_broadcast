@@ -1,0 +1,43 @@
+2023-07-25 21:01:00,308 - WARNING -  * Debugger is active!
+2023-07-25 21:01:00,312 - INFO -  * Debugger PIN: 826-483-082
+2023-07-25 21:01:01,379 - INFO -  * Detected change in 'D:\\projects\\TCS\\The BroadCast\\app.py', reloading
+2023-07-25 21:01:02,541 - WARNING -  * Debugger is active!
+2023-07-25 21:01:02,548 - INFO -  * Debugger PIN: 826-483-082
+2023-07-25 21:01:04,650 - INFO -  * Detected change in 'D:\\projects\\TCS\\The BroadCast\\app.py', reloading
+2023-07-25 21:01:05,704 - WARNING -  * Debugger is active!
+2023-07-25 21:01:05,706 - INFO -  * Debugger PIN: 826-483-082
+2023-07-25 21:01:34,523 - INFO -  * Detected change in 'D:\\projects\\TCS\\The BroadCast\\app.py', reloading
+2023-07-25 21:01:35,483 - WARNING -  * Debugger is active!
+2023-07-25 21:01:35,499 - INFO -  * Debugger PIN: 826-483-082
+2023-07-25 21:01:51,990 - INFO -  * Detected change in 'D:\\projects\\TCS\\The BroadCast\\app.py', reloading
+2023-07-25 21:01:53,152 - WARNING -  * Debugger is active!
+2023-07-25 21:01:53,160 - INFO -  * Debugger PIN: 826-483-082
+2023-07-25 21:02:19,843 - INFO -  * Detected change in 'D:\\projects\\TCS\\The BroadCast\\app.py', reloading
+2023-07-25 21:02:21,128 - WARNING -  * Debugger is active!
+2023-07-25 21:02:21,133 - INFO -  * Debugger PIN: 826-483-082
+2023-07-25 21:02:57,057 - INFO -  * Detected change in 'D:\\projects\\TCS\\The BroadCast\\app.py', reloading
+2023-07-25 21:02:58,159 - WARNING -  * Debugger is active!
+2023-07-25 21:02:58,167 - INFO -  * Debugger PIN: 826-483-082
+2023-07-25 21:03:49,602 - INFO -  * Detected change in 'D:\\projects\\TCS\\The BroadCast\\app.py', reloading
+2023-07-25 21:03:50,726 - WARNING -  * Debugger is active!
+2023-07-25 21:03:50,730 - INFO -  * Debugger PIN: 826-483-082
+2023-07-25 21:04:59,184 - INFO - 127.0.0.1 - - [25/Jul/2023 21:04:59] "GET / HTTP/1.1" 200 -
+2023-07-25 21:04:59,299 - INFO - 127.0.0.1 - - [25/Jul/2023 21:04:59] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2023-07-25 21:05:01,539 - INFO - 127.0.0.1 - - [25/Jul/2023 21:05:01] "GET /login HTTP/1.1" 200 -
+2023-07-25 21:05:01,585 - INFO - 127.0.0.1 - - [25/Jul/2023 21:05:01] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2023-07-25 21:05:07,883 - INFO - User "admin" logged in.
+2023-07-25 21:05:07,884 - INFO - 127.0.0.1 - - [25/Jul/2023 21:05:07] "[32mPOST /login HTTP/1.1[0m" 302 -
+2023-07-25 21:05:07,899 - INFO - 127.0.0.1 - - [25/Jul/2023 21:05:07] "GET /news HTTP/1.1" 200 -
+2023-07-25 21:05:07,947 - INFO - 127.0.0.1 - - [25/Jul/2023 21:05:07] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2023-07-25 21:05:13,404 - INFO - 127.0.0.1 - - [25/Jul/2023 21:05:13] "[35m[1mGET /view_logs HTTP/1.1[0m" 500 -
+2023-07-25 21:05:13,459 - INFO - 127.0.0.1 - - [25/Jul/2023 21:05:13] "GET /view_logs?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2023-07-25 21:05:13,459 - INFO - 127.0.0.1 - - [25/Jul/2023 21:05:13] "GET /view_logs?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2023-07-25 21:05:13,525 - INFO - 127.0.0.1 - - [25/Jul/2023 21:05:13] "GET /view_logs?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2023-07-25 21:05:13,585 - INFO - 127.0.0.1 - - [25/Jul/2023 21:05:13] "[36mGET /view_logs?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2023-07-25 21:05:59,641 - INFO - 127.0.0.1 - - [25/Jul/2023 21:05:59] "GET /view_logs HTTP/1.1" 200 -
+2023-07-25 21:05:59,675 - INFO - 127.0.0.1 - - [25/Jul/2023 21:05:59] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2023-07-25 21:06:08,716 - INFO - 127.0.0.1 - - [25/Jul/2023 21:06:08] "GET / HTTP/1.1" 200 -
+2023-07-25 21:06:08,767 - INFO - 127.0.0.1 - - [25/Jul/2023 21:06:08] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2023-07-25 21:06:10,732 - INFO - 127.0.0.1 - - [25/Jul/2023 21:06:10] "[32mGET /logout HTTP/1.1[0m" 302 -
+2023-07-25 21:06:10,746 - INFO - 127.0.0.1 - - [25/Jul/2023 21:06:10] "GET /news HTTP/1.1" 200 -
+2023-07-25 21:06:10,787 - INFO - 127.0.0.1 - - [25/Jul/2023 21:06:10] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -

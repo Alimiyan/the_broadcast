@@ -28,6 +28,12 @@
             <li class="nav-item">
               <a class="nav-link" href="/contact">Contact us</a>
             </li>
+            {% if username == 'admin' %}
+            <li class="nav-item">
+              <a class="nav-link" href="/view_logs">View Logs</a>
+            </li>
+            {% endif %}
+
           </ul>
         </div>
         {% if username %}

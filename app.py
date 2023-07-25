@@ -1,11 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from datetime import date,datetime
 from flask_sqlalchemy import SQLAlchemy
+import logging
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
+
+#for logging
+logging.basicConfig(filename='website_logs.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -21,63 +27,40 @@ class News(db.Model):
     category = db.Column(db.String(50), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
-
-
-# Sample data for news headlines
-sample_headlines = [
-    {
-        "headline": "Breaking News: Major Earthquake Hits Eastern Region",
-        "description": "A major earthquake with a magnitude of 7.5 struck the eastern region...",
-        "author": "John Doe",
-        "category": "Disaster"
-    },
-    {
-        "headline": "Sports: Team Wins Championship in Thrilling Overtime",
-        "description": "The local sports team secured a stunning victory in the championship...",
-        "author": "Jane Smith",
-        "category": "Sports"
-    },
-    {
-        "headline": "Lifestyle: New Fashion Trends for This Season",
-        "description": "Discover the latest fashion trends for this season and upgrade your wardrobe...",
-        "author": "Samantha Johnson",
-        "category": "Lifestyle"
-    },
-    {
-        "headline": "Technology: Launch of Revolutionary AI-powered Device",
-        "description": "A groundbreaking AI-powered device is set to change the tech industry...",
-        "author": "Michael Lee",
-        "category": "Technology"
-    },
-    {
-        "headline": "Health: Tips for a Balanced Diet and Exercise",
-        "description": "Learn how to maintain a balanced diet and incorporate regular exercise...",
-        "author": "Emily Wang",
-        "category": "Health"
-    }
-]
-
-# @app.context_processor
-# def inject_username():
-#     # This function will run before rendering any template
-#     # It injects the 'username' into the template context
-#     return dict(username=session.get('username'))
+@app.context_processor
+def inject_user_role():
+    username = session.get('role')
+    return dict(username=username)
 
 @app.route('/')
 def index():
     name = 'The BroadCast'
     launch_date = date.today()
-    username = session.get('username')
-    return render_template('base.html', name=name, date=launch_date, username=username)
+    return render_template('base.html', name=name, date=launch_date, )
 
 @app.route('/news' , methods=['GET', 'POST'])
 def news():
-    username = session.get('username')
-    return render_template('news.html', news_list=sample_headlines, username=username)  
+    #get all news from database
+    news_list = News.query.all()
+    return render_template('news.html', news_list=news_list,)  
 
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+
+@app.route('/view_logs', methods=['GET'])
+def view_logs():
+    # Check if the user is logged in and has admin role
+    if 'username' in session and session['role'] == 'admin':
+        try:
+            with open('website_logs.log', 'r') as log_file:
+                logs = log_file.read()
+                return render_template('view_logs.html', logs=logs)
+        except FileNotFoundError:
+            return render_template('view_logs.html', logs='Log file not found.')
+    else:
+        return 'You are not authorized to view this page.', 403
+
 
 @app.route('/add_news', methods=['GET', 'POST'])
 def add_news():
@@ -86,9 +69,35 @@ def add_news():
         description = request.form['description']
         author = request.form['author']
         category = request.form['category']
+        print(headline, description, author, category)
+        news = News(headline=headline, description=description, author=author, category=category)
+        db.session.add(news)
+        db.session.commit()
+        logging.info(f'News added by "{session["username"]}". Headline: "{headline}".')
         return redirect('/news')
     else:
         return render_template('add_news.html') 
+
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    news = News.query.get(id)
+    if request.method == 'POST':
+        news.headline = request.form['headline']
+        news.description = request.form['description']
+        news.author = request.form['author']
+        news.category = request.form['category']
+        db.session.commit()
+        logging.info(f'News updated by "{session["username"]}". News ID: {news_id}.')
+        return redirect('/news')
+    else:
+        return render_template('update.html', news=news)
+@app.route('/delete/<int:id>')
+def delete(id):
+    news = News.query.get(id)
+    db.session.delete(news)
+    db.session.commit()
+    return redirect('/news')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -97,15 +106,17 @@ def login():
         password = request.form['password']
         user_data = User.query.filter_by(username=username, password=password).first()
         if user_data is not None:
+            logging.info(f'User "{username}" logged in.')
             session['username'] = username
             session['role'] = user_data.role
             return redirect('/news')
         else:
+            logging.warning(f'Failed login attempt for user "{username}".')
             msg = 'Invalid username or password'
             return render_template('login.html', msg= msg)
     else:
         username = session.get('username')
-        return render_template('login.html', username=username)
+        return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
