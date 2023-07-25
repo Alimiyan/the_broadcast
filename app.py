@@ -57,15 +57,23 @@ sample_headlines = [
     }
 ]
 
+# @app.context_processor
+# def inject_username():
+#     # This function will run before rendering any template
+#     # It injects the 'username' into the template context
+#     return dict(username=session.get('username'))
+
 @app.route('/')
 def index():
     name = 'The BroadCast'
     launch_date = date.today()
-    return render_template('base.html', name=name, date=launch_date)
+    username = session.get('username')
+    return render_template('base.html', name=name, date=launch_date, username=username)
 
-@app.route('/news')
+@app.route('/news' , methods=['GET', 'POST'])
 def news():
-    return render_template('news.html', news_list=sample_headlines)
+    username = session.get('username')
+    return render_template('news.html', news_list=sample_headlines, username=username)  
 
 @app.route('/contact')
 def contact():
@@ -81,6 +89,44 @@ def add_news():
         return redirect('/news')
     else:
         return render_template('add_news.html') 
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user_data = User.query.filter_by(username=username, password=password).first()
+        if user_data is not None:
+            session['username'] = username
+            session['role'] = user_data.role
+            return redirect('/news')
+        else:
+            msg = 'Invalid username or password'
+            return render_template('login.html', msg= msg)
+    else:
+        username = session.get('username')
+        return render_template('login.html', username=username)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        rpassword = request.form['rpassword']
+        if password == rpassword:
+            user = User(username=username, password=password, role='user')
+            db.session.add(user)
+            db.session.commit()
+            flash('User registered successfully')
+        return redirect('/news')
+    else:
+        return render_template('registration.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    session.pop('role', None)
+    return redirect('/news')
 
 if __name__ == '__main__':
     app.run(debug=True)
